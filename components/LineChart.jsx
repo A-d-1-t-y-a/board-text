@@ -114,8 +114,10 @@ const LineChart = () => {
         series={chartData.series}
         type="line"
         width={
-          windowWidth < 770
-            ? windowWidth - 250
+          windowWidth < 700
+            ? windowWidth - 300
+            : windowWidth < 770
+            ? windowWidth - 400
             : windowWidth > 1190
             ? windowWidth - 520
             : windowWidth - 440
