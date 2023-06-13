@@ -6,6 +6,8 @@ import { signIn, useSession } from "next-auth/react";
 
 import { useRouter } from "next/navigation";
 
+import Image from "next/image";
+
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 
@@ -21,6 +23,7 @@ function page() {
     password: "",
     userNull: null,
   });
+  const [loading, setLoading] = useState(false);
 
   const handleEmail = (e) => setEmail(e.target.value);
 
@@ -54,6 +57,7 @@ function page() {
   };
 
   const fetchUserDetails = async () => {
+    setLoading(true);
     try {
       const res = await fetch(`/api/signin/${email}`, { method: "GET" });
 
@@ -75,6 +79,8 @@ function page() {
         password: "",
         userNull: "Network error or Api error, please try again",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,7 +89,7 @@ function page() {
   );
 
   const renderEmailAndPasswordIp = () => (
-    <div className="bg-white p-[1.875rem] rounded-[0.625rem] flex flex-col gap-5 mb-5 mt-[1.5625rem] font-lato">
+    <div className="bg-white p-5 sm:p-[1.875rem] rounded-[0.625rem] flex flex-col gap-5 mb-5 mt-[1.5625rem] font-lato">
       <Input
         labelText="Email address"
         labelClassName="text-black text-base mb-[0.625rem]"
@@ -92,7 +98,7 @@ function page() {
         value={email}
         onChange={handleEmail}
         type="email"
-        wrapperClassName="bg-emailPlaceholder pt-[0.625rem] pb-[0.6875rem] w-[20.3125rem]"
+        wrapperClassName="bg-emailPlaceholder pt-[0.625rem] pb-[0.6875rem] w-full sm:w-[20.3125rem]"
         error={error.email && renderErrorMessage(error.email)}
       />
       <Input
@@ -108,7 +114,18 @@ function page() {
       />
       <p className="text-linkText text-base">Forgot password?</p>
       <Button
-        title="Sign In"
+        title={
+          loading ? (
+            <Image
+              src="/assets/icons/Infinity-loading.svg"
+              width={30}
+              height={10}
+              alt="icon"
+            />
+          ) : (
+            "Sign In"
+          )
+        }
         // disabled={!password.length || !email.length}
         className="bg-black py-[0.5625rem] rounded-[0.625rem] text-white font-bold text-base justify-center w-full font-montserrat disabled:bg-slate-500 hover:bg-slate-500"
         onClick={handleValidation}
@@ -117,13 +134,15 @@ function page() {
     </div>
   );
 
-  const renderRightSidePart = () => (
-    <div>
-      <p className="font-bold text-black text-4xl">Sign In</p>
-      <p className="text-black text-base mt-[0.3125rem] mb-[1.625rem] font-lato">
+  const renderSignInBox = () => (
+    <div className="py-4 px-2 sm:p-0">
+      <p className="font-bold text-black text-4xl text-center sm:text-left">
+        Sign In
+      </p>
+      <p className="text-black text-base mt-[0.3125rem] mb-[1.625rem] font-lato text-center sm:text-left">
         Sign in to your account
       </p>
-      <div className="flex items-center gap-[1.5625rem]">
+      <div className="flex gap-[1.5625rem]">
         <Button
           className="gap-[0.625rem] bg-white px-[1.1875rem] py-[0.4375rem] text-xs text-subTitle rounded-[0.625rem] flex-1"
           onClick={signIn}
@@ -149,14 +168,14 @@ function page() {
   }, [session]);
 
   return (
-    <div className="h-screen w-full flex">
-      <div className="flex items-center justify-center sm:w-5/12 md:w-5/12 lg:w-[36.75rem] bg-black xl:w-5/12">
+    <main className="h-screen w-full block sm:flex">
+      <div className="flex items-center justify-center w-full sm:w-5/12 md:w-5/12 lg:w-[36.75rem] xl:w-5/12 min-h-[30vh] bg-black">
         <p className="font-bold text-white text-7xl">Board.</p>
       </div>
-      <div className="flex-1 flex items-center justify-center bg-backgroundColor">
-        {renderRightSidePart()}
+      <div className="flex-1 flex items-center justify-center bg-backgroundColor min-h-[70vh]">
+        {renderSignInBox()}
       </div>
-    </div>
+    </main>
   );
 }
 
