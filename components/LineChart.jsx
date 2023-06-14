@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
+import Loading from "./Loading";
 
-const LineChart = () => {
+const LineChart = ({ refWidth }) => {
+  // console.log(refWidth)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const chartData = {
@@ -114,18 +116,22 @@ const LineChart = () => {
         series={chartData.series}
         type="line"
         width={
-          windowWidth < 700
-            ? windowWidth - 300
+          windowWidth < 640
+            ? windowWidth - 60
             : windowWidth < 770
-            ? windowWidth - 400
-            : windowWidth > 1190
-            ? windowWidth - 520
+            ? windowWidth - 300
+            : windowWidth < 1000
+            ? windowWidth - 480
+            : windowWidth < 1190
+            ? windowWidth - 500
+            : windowWidth > 1290
+            ? windowWidth - 460
             : windowWidth - 440
         }
         height={212}
       />
     );
-  else return null;
+  else return <Loading />;
 };
 
 export default LineChart;

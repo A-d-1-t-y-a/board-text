@@ -1,6 +1,7 @@
 "use client";
 
 import ReactApexChart from "react-apexcharts";
+import Loading from "./Loading";
 
 function PieChart() {
   const chatOptions = {
@@ -37,7 +38,7 @@ function PieChart() {
     return (
       <div
         id="chart"
-        className="w-full flex items-center sm:justify-around lg:justify-between xl:justify-around"
+        className="w-full flex items-center flex-col pieChartWidth:flex-row justify-around"
       >
         <ReactApexChart
           options={chatOptions.options}
@@ -46,7 +47,7 @@ function PieChart() {
           width={230}
         />
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 mt-3 pieChartWidth:mt-0">
           {chatOptions.options.labels.map((label, index) => (
             <div key={label}>
               <div className="flex gap-2 items-center mb-1">
@@ -68,7 +69,7 @@ function PieChart() {
         </div>
       </div>
     );
-  else return null;
+  else return <Loading />;
 }
 
 export default PieChart;

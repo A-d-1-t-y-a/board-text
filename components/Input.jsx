@@ -21,7 +21,7 @@ function Input({
       >
         <input
           className={cx(
-            "placeholder:text-placeholderColor outline-none",
+            "placeholder:text-placeholderColor outline-none flex-1",
             className
           )}
           {...restProps}

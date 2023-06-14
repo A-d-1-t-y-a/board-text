@@ -168,14 +168,14 @@ function page() {
   }, [session]);
 
   return (
-    <main className="h-screen w-full block sm:flex">
+    <div className="h-screen w-full block sm:flex">
       <div className="flex items-center justify-center w-full sm:w-5/12 md:w-5/12 lg:w-[36.75rem] xl:w-5/12 min-h-[30vh] bg-black">
         <p className="font-bold text-white text-7xl">Board.</p>
       </div>
       <div className="flex-1 flex items-center justify-center bg-backgroundColor min-h-[70vh]">
         {renderSignInBox()}
       </div>
-    </main>
+    </div>
   );
 }
 

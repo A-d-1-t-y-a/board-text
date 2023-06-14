@@ -4,8 +4,8 @@ const nextConfig = {
     domains: ["3.bp.blogspot.com", "lh3.googleusercontent.com"],
   },
   experimental: {
-      appDir: true,
-      serverComponentsExternalPackages: ["mongoose"],
+    appDir: true,
+    serverComponentsExternalPackages: ["mongoose"],
   },
 };
 
